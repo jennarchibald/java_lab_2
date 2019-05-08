@@ -2,7 +2,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,7 +17,7 @@ public class DiningRoomTest {
         tables.add(4);
         tables.add(2);
         tables.add(6);
-        diningRoom = new DiningRoom(tables);
+        diningRoom = new DiningRoom(tables, "Beefeater");
         guest = new Guest();
     }
 
@@ -36,5 +35,12 @@ public class DiningRoomTest {
     public void canAddGuest(){
         diningRoom.addGuest(guest);
         assertEquals(1, diningRoom.guestCount());
+    }
+
+    @Test
+    public void canRemoveGuest(){
+        diningRoom.addGuest(guest);
+        diningRoom.removeGuest(guest);
+        assertEquals(0, diningRoom.guestCount());
     }
 }

@@ -1,13 +1,14 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DiningRoom {
 
     private ArrayList<Integer> tables;
     private ArrayList<Guest> guests;
+    private String name;
 
-    public DiningRoom(ArrayList<Integer> tables){
+    public DiningRoom(ArrayList<Integer> tables, String name){
         this.tables = tables;
+        this.name = name;
         this.guests = new ArrayList<>();
     }
 
@@ -26,5 +27,9 @@ public class DiningRoom {
 
     public void addGuest(Guest guest) {
         guests.add(guest);
+    }
+
+    public void removeGuest(Guest guest) {
+        guests.remove(guest);
     }
 }
