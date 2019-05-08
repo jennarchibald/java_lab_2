@@ -21,4 +21,8 @@ public class Booking {
     public Guest getGuest() {
         return guest;
     }
+
+    public double totalBill() {
+        return numberOfNights * bedRoom.getNightlyRate();
+    }
 }

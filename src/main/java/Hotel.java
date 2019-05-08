@@ -25,9 +25,14 @@ public class Hotel {
     public int conferenceRoomCount() {
         return conferenceRooms.size();
     }
+    public int bookingsCount() {
+        return bookings.size();
+    }
 
     public void checkGuestIntoBedRoom(BedRoom bedRoom, Guest guest) {
+        if (bedRoom.isVacant()){
             bedRoom.addGuest(guest);
+        }
     }
 
     public void checkGuestOutOfBedRoom(BedRoom bedRoom, Guest guest) {
@@ -48,5 +53,21 @@ public class Hotel {
 
     public void checkGuestOutOfConferenceRoom(ConferenceRoom conferenceRoom, Guest guest) {
         conferenceRoom.removeGuest(guest);
+    }
+
+    public Booking bookRoom(BedRoom bedRoom, Guest guest, int duration) {
+        Booking booking = new Booking(bedRoom, duration, guest);
+        bookings.add(booking);
+        return booking;
+    }
+
+    public ArrayList<BedRoom> getVacantRooms() {
+        ArrayList<BedRoom> vacancies = new ArrayList<>();
+        for (BedRoom bedRoom : bedRooms){
+            if (bedRoom.isVacant()){
+                vacancies.add(bedRoom);
+            }
+        }
+        return vacancies;
     }
 }

@@ -26,10 +26,10 @@ public class HotelTest {
 
     @Before
     public void before(){
-        bedRoom1 = new BedRoom(1, 2, "Twin");
-        bedRoom2 = new BedRoom(2, 2, "Twin");
-        bedRoom3 = new BedRoom(3, 2, "Double");
-        bedRoom4 = new BedRoom(4, 4, "Family Room");
+        bedRoom1 = new BedRoom(1, 2, "Twin", 30.00);
+        bedRoom2 = new BedRoom(2, 2, "Twin", 30.00);
+        bedRoom3 = new BedRoom(3, 2, "Double", 40.00);
+        bedRoom4 = new BedRoom(4, 4, "Family Room", 55.00);
         bedRooms = new ArrayList<>();
         bedRooms.add(bedRoom1);
         bedRooms.add(bedRoom2);
@@ -102,5 +102,30 @@ public class HotelTest {
         hotel.checkGuestIntoConferenceRoom(conferenceRoom, guest);
         hotel.checkGuestOutOfConferenceRoom(conferenceRoom, guest);
         assertEquals(0, conferenceRoom.guestCount());
+    }
+
+    @Test
+    public void canBookRoom(){
+        Booking booking = hotel.bookRoom(bedRoom1, guest, 3);
+        assertEquals(3, booking.getNumberOfNights());
+        assertEquals(guest, booking.getGuest());
+        assertEquals(bedRoom1, booking.getBedRoom());
+        assertEquals(1, hotel.bookingsCount());
+    }
+
+    @Test
+    public void canSeeVacantRooms(){
+        hotel.checkGuestIntoBedRoom(bedRoom1, guest);
+        hotel.checkGuestIntoBedRoom(bedRoom2, guest);
+        ArrayList<BedRoom> vacancies = hotel.getVacantRooms();
+        assertEquals(2, vacancies.size());
+        assertEquals(true, vacancies.contains(bedRoom3));
+    }
+
+    @Test
+    public void canNotCheckIntoOccupiedBedRooms(){
+        hotel.checkGuestIntoBedRoom(bedRoom1, guest);
+        hotel.checkGuestIntoBedRoom(bedRoom1, guest);
+        assertEquals(1, bedRoom1.guestCount());
     }
 }
