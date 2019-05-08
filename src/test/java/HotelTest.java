@@ -17,8 +17,10 @@ public class HotelTest {
     BedRoom bedRoom4;
 
     DiningRoom diningRoom;
-    ArrayList<Integer> tables;
+    ArrayList<Table> tables;
     ConferenceRoom conferenceRoom;
+
+    Table table;
 
     Guest guest;
 
@@ -38,10 +40,10 @@ public class HotelTest {
         guest = new Guest();
 
         tables = new ArrayList<>();
-        tables.add(2);
-        tables.add(3);
-        tables.add(4);
-        tables.add(5);
+        for (int i = 1; i < 5; i++){
+            table = new Table(i, 4);
+            tables.add(table);
+        }
         diningRoom = new DiningRoom(tables, "Restaurant");
         diningRooms = new ArrayList<>();
         diningRooms.add(diningRoom);
@@ -81,13 +83,13 @@ public class HotelTest {
     }
     @Test
     public void canCheckGuestIntoDiningRoom(){
-        hotel.checkGuestIntoDiningRoom(diningRoom, guest);
+        hotel.checkGuestIntoDiningRoom(diningRoom, guest, 2);
         assertEquals(1, diningRoom.guestCount());
     }
 
     @Test
     public void canCheckGuestOutOfDiningRoom(){
-        hotel.checkGuestIntoDiningRoom(diningRoom, guest);
+        hotel.checkGuestIntoDiningRoom(diningRoom, guest, 2);
         hotel.checkGuestOutOfDiningRoom(diningRoom, guest);
         assertEquals(0, diningRoom.guestCount());
     }

@@ -9,21 +9,28 @@ public class DiningRoomTest {
 
     DiningRoom diningRoom;
     Guest guest;
-    ArrayList<Integer> tables;
+    ArrayList<Table> tables;
+    Table table;
+    Table table0;
 
     @Before
     public void before(){
-        tables = new ArrayList<Integer>();
-        tables.add(4);
-        tables.add(2);
-        tables.add(6);
+        tables = new ArrayList<Table>();
+        table0 = new Table(0, 8);
+        tables.add(table0);
+        for (int i = 1; i < 5; i++){
+            table = new Table(i, 4);
+            tables.add(table);
+        }
+
+
         diningRoom = new DiningRoom(tables, "Beefeater");
         guest = new Guest();
     }
 
     @Test
     public void hasCapacity(){
-        assertEquals(12, diningRoom.capacity());
+        assertEquals(24, diningRoom.capacity());
     }
 
     @Test
@@ -33,14 +40,29 @@ public class DiningRoomTest {
 
     @Test
     public void canAddGuest(){
-        diningRoom.addGuest(guest);
+        diningRoom.addGuest(guest, 2);
+        assertEquals(1, diningRoom.guestCount());
+    }
+
+    @Test
+    public void cannotAddGuestIfNoTablesBigEnough(){
+        diningRoom.addGuest(guest, 10);
+        assertEquals(0, diningRoom.guestCount());
+    }
+
+    @Test
+    public void cannotAddGuestIfAllTablesFull(){
+        diningRoom.addGuest(guest, 6);
+        diningRoom.addGuest(guest, 6);
         assertEquals(1, diningRoom.guestCount());
     }
 
     @Test
     public void canRemoveGuest(){
-        diningRoom.addGuest(guest);
+        diningRoom.addGuest(guest, 2);
         diningRoom.removeGuest(guest);
         assertEquals(0, diningRoom.guestCount());
     }
+
+
 }

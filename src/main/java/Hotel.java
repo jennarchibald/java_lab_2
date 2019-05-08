@@ -39,8 +39,8 @@ public class Hotel {
         bedRoom.removeGuest(guest);
     }
 
-    public void checkGuestIntoDiningRoom(DiningRoom diningRoom, Guest guest) {
-        diningRoom.addGuest(guest);
+    public void checkGuestIntoDiningRoom(DiningRoom diningRoom, Guest guest, int numberInParty) {
+        diningRoom.addGuest(guest, numberInParty);
     }
 
     public void checkGuestOutOfDiningRoom(DiningRoom diningRoom, Guest guest) {

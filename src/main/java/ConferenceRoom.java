@@ -20,10 +20,16 @@ public class ConferenceRoom {
 
 
     public void addGuest(Guest guest) {
-        guests.add(guest);
+        if (!isFull()) {
+            guests.add(guest);
+        }
     }
 
     public void removeGuest(Guest guest) {
         guests.remove(guest);
+    }
+
+    public boolean isFull() {
+        return capacity <= guestCount();
     }
 }

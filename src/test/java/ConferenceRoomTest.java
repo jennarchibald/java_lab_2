@@ -37,4 +37,13 @@ public class ConferenceRoomTest {
         conferenceRoom.removeGuest(guest);
         assertEquals(0, conferenceRoom.guestCount());
     }
+
+    @Test
+    public void fullWhenCapacityIsReached(){
+        for (int i = 0; i < 7; i ++){
+            conferenceRoom.addGuest(guest);
+        }
+        assertEquals(true, conferenceRoom.isFull());
+        assertEquals(5, conferenceRoom.guestCount());
+    }
 }
